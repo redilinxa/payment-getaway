@@ -12,9 +12,18 @@ use App\Customer;
 
 class CustomerService
 {
+    /**
+     * @var AccountService
+     */
+    private $accountService;
+
+    public function __construct(AccountService $accountService)
+    {
+        $this->accountService = $accountService;
+    }
+
     public function create(array $data){
         $customer = new Customer();
-        $customer = $this->generateBonus($customer);
         return $this->updateCustomerObject($customer, $data);
     }
 
@@ -23,11 +32,10 @@ class CustomerService
     }
 
     private function updateCustomerObject(Customer $customer, $data){
-        $customer->email = $data['email'];
         $customer->firstName = $data['firstName'];
         $customer->lastName = $data['lastName'];
-        $customer->gender = $data['gender'];
-        $customer->country = $data['country'];
+        $customer->gender = $data['telephone'];
+        $this->accountService->addAccount($data);
         $customer->save();
         return $customer;
     }

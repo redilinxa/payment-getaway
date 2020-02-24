@@ -8,46 +8,27 @@
 namespace App\Service;
 use App\Account;
 use App\Customer;
-use App\Transaction;
 
 class AccountService
 {
     /**
      * @param Customer $customer
-     * @return mixed
-     */
-    public function getCustomerBalance(Customer $customer){
-        return Account::findOrFail(['customer_id' => $customer->id]);
-    }
-
-    /**
-     * @param Customer $customer
-     * @param Transaction $transaction
      * @return Account $acount
      */
-    public function increaseBalance(Customer $customer, Transaction $transaction){
+    public function addAccount(Customer $customer, $data){
         $account = Account::firstOrNew(['customer_id' => $customer->id]);
-        $account->realBalance += $transaction->amount;
-        $account->bonusBalance += $transaction->bonus;
+        $this->updateAccountObject($account, $data);
         $account->save();
         return $account;
     }
 
-    /**
-     * @param Customer $customer
-     * @param Transaction $transaction
-     * @return mixed
-     * @throws \Exception
-     */
-    public function decreaseBalance(Customer $customer, Transaction $transaction){
-        $account = Account::where(['customer_id' => $customer->id])->first();
-        if (!$account){
-            throw new \Exception("Account not found for customer {$customer->firstName} {$customer->lastName}!");
-        }
-        $account->realBalance -= $transaction->amount;
-        if ($account->realBalance<0){
-            throw new \Exception("Withdrawal of value {$transaction->amount} not allowed! The costumer's {$customer->firstName} {$customer->lastName} balance would go below 0!");
-        }
+    private function updateAccountObject(Account $account, $data){
+        $account->street = $data['street'];
+        $account->house_no = $data['house_no'];
+        $account->zip_code = $data['zip_code'];
+        $account->city = $data['city'];
+        $account->owner = $data['owner'];
+        $account->iban = $data['iban'];
         $account->save();
         return $account;
     }

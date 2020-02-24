@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    protected $fillable = ['customer_id', 'amount', 'bonus'];
+    protected $fillable = ['customer_id', 'street', 'house_no', 'zip_code', 'city', 'owner', 'iban'];
 
     public function customer()
     {
