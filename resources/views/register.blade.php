@@ -1,105 +1,104 @@
 @extends('layouts.app')
 
-@section('Registration', 'Step 1')
-
 @section('content')
-    <div class="mb-5 p-4 bg-white shadow-sm">
-        <h3>Non linear stepper</h3>
-        <div id="stepper2" class="bs-stepper">
-            <div class="bs-stepper-header" role="tablist">
-                <div class="step active" data-target="#test-nl-1">
-                    <button type="button" class="step-trigger" role="tab" id="stepper2trigger1" aria-controls="test-nl-1" aria-selected="true">
-                <span class="bs-stepper-circle">
-                  <span class="fas fa-user" aria-hidden="true"></span>
-                </span>
-                        <span class="bs-stepper-label">Name</span>
-                    </button>
+    <div class="container flex-grow-1 flex-shrink-0 py-5">
+        <div class="mb-5 p-4 bg-white shadow-sm">
+            <h3>Form validation</h3>
+            <div id="stepperForm" class="bs-stepper">
+                <div class="bs-stepper-header" role="tablist">
+                    <div class="step" data-target="#test-form-1">
+                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="test-form-1">
+                            <span class="bs-stepper-circle">1</span>
+                            <span class="bs-stepper-label">Personal Information</span>
+                        </button>
+                    </div>
+                    <div class="bs-stepper-line"></div>
+                    <div class="step" data-target="#test-form-2">
+                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="test-form-2">
+                            <span class="bs-stepper-circle">2</span>
+                            <span class="bs-stepper-label">Address</span>
+                        </button>
+                    </div>
+                    <div class="bs-stepper-line"></div>
+                    <div class="step" data-target="#test-form-3">
+                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="test-form-3">
+                            <span class="bs-stepper-circle">3</span>
+                            <span class="bs-stepper-label">Payment Information</span>
+                        </button>
+                    </div>
+                    <div class="bs-stepper-line"></div>
+                    <div class="step" data-target="#test-form-4">
+                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger4" aria-controls="test-form-4">
+                            <span class="bs-stepper-circle">4</span>
+                            <span class="bs-stepper-label">Status</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="bs-stepper-line"></div>
-                <div class="step" data-target="#test-nl-2">
-                    <button type="button" class="step-trigger" role="tab" id="stepper2trigger2" aria-controls="test-nl-2" aria-selected="false">
-                <span class="bs-stepper-circle">
-                  <span class="fas fa-map-marked" aria-hidden="true"></span>
-                </span>
-                        <span class="bs-stepper-label">Address</span>
-                    </button>
-                </div>
-                <div class="bs-stepper-line"></div>
-                <div class="step" data-target="#test-nl-3">
-                    <button type="button" class="step-trigger" role="tab" id="stepper2trigger3" aria-controls="test-nl-3" aria-selected="false">
-                <span class="bs-stepper-circle">
-                  <span class="fas fa-save" aria-hidden="true"></span>
-                </span>
-                        <span class="bs-stepper-label">Submit</span>
-                    </button>
-                </div>
-            </div>
-            <div class="bs-stepper-content">
-                <form onsubmit="return false">
-                    <div id="test-nl-1" role="tabpanel" class="bs-stepper-pane active dstepper-block" aria-labelledby="stepper2trigger1">
-                        <div class="form-group">
-                            <label for="exampleInputName1">Name</label>
-                            <input type="email" class="form-control" id="exampleInputName1" placeholder="Enter your name">
+                <div class="bs-stepper-content">
+                    <form class="needs-validation" onSubmit="return false" novalidate>
+                        <div id="test-form-1" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
+                            <div class="form-group">
+                                <label for="inputFirstNameForm">First Name <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputFirstNameForm" type="text" class="form-control" placeholder="First Name" required>
+                                <div class="invalid-feedback">Please fill First Name</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLastNameForm">Last Name <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputLastNameForm" type="text" class="form-control" placeholder="Last Name" required>
+                                <div class="invalid-feedback">Please fill Last Name</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputTelephoneForm">Telephone<span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputTelephoneForm" type="text" class="form-control" placeholder="Telephone" required>
+                                <div class="invalid-feedback">Please fill Telephone</div>
+                            </div>
+                            <button class="btn btn-primary btn-next-form" >Next</button>
                         </div>
-                        <button class="btn btn-primary" onclick="stepper2.next()">Next</button>
-                    </div>
-                    <div id="test-nl-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper2trigger2">
-                        <div class="form-group">
-                            <label for="exampleInpuAddress1">Address</label>
-                            <input type="email" class="form-control" id="exampleInpuAddress1" placeholder="Enter your address">
+                        <div id="test-form-2" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger2">
+                            <div class="form-group">
+                                <label for="inputStreetForm">Street <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputStreetForm" type="text" class="form-control" placeholder="Street" required>
+                                <div class="invalid-feedback">Please fill Street</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputHouseNoForm">House Number <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputHouseNoForm" type="text" class="form-control" placeholder="House Number" required>
+                                <div class="invalid-feedback">Please fill House Number</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputZipCodeForm">Zip Code <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputZipCodeForm" type="text" class="form-control" placeholder="Zip Code" required>
+                                <div class="invalid-feedback">Please fill Zip Code </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCityForm">City <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputCityForm" type="text" class="form-control" placeholder="City" required>
+                                <div class="invalid-feedback">Please fill City</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="stepperForm.previous()">Previous</button>
+                            <button class="btn btn-primary btn-next-form">Next</button>
                         </div>
-                        <button class="btn btn-primary" onclick="stepper2.next()">Next</button>
-                    </div>
-                    <div id="test-nl-3" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper2trigger3">
-                        <button type="submit" class="btn btn-primary mt-5">Submit</button>
-                    </div>
-                </form>
+                        <div id="test-form-3" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
+                            <div class="form-group">
+                                <label for="inputAccountOwnerForm">Account Owner <span class="text-danger font-weight-bold">*</span></label>
+                                <input id="inputAccountOwnerForm" type="text" class="form-control" placeholder="Account Owner" required>
+                                <div class="invalid-feedback">Please fill Account Owner</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputIBANForm">IBAN</label>
+                                <input id="inputIBANForm" type="text" class="form-control" placeholder="IBAN">
+                                <div class="invalid-feedback">Please fill IBAN</div>
+                            </div>
+                            <button class="btn btn-primary" onclick="stepperForm.previous()">Previous</button>
+                            <button class="btn btn-primary btn-next-form">Next</button>
+                        </div>
+                        <div id="test-form-4" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
+                            <div id="displayResult"><p></p></div>
+                            <button class="btn btn-primary mt-5" onclick="stepperForm.previous()">Previous</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 @endsection
-    <script type="application/javascript">
-        var stepper2;
-        document.addEventListener('DOMContentLoaded', function () {
-            stepper2 = new Stepper(document.querySelector('#stepper2'), {
-                linear: false
-            });
-            var stepperForm;
-
-            /*var stepperFormEl = document.querySelector('#stepperForm')
-            stepperForm = new Stepper(stepperFormEl, {
-                animation: true
-            })
-
-            var btnNextList = [].slice.call(document.querySelectorAll('.btn-next-form'))
-            var stepperPanList = [].slice.call(stepperFormEl.querySelectorAll('.bs-stepper-pane'))
-            var inputMailForm = document.getElementById('inputMailForm')
-            var inputPasswordForm = document.getElementById('inputPasswordForm')
-            var form = stepperFormEl.querySelector('.bs-stepper-content form')
-
-            btnNextList.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    stepperForm.next()
-                })
-            })
-
-            stepperFormEl.addEventListener('show.bs-stepper', function (event) {
-                form.classList.remove('was-validated')
-                var nextStep = event.detail.indexStep
-                var currentStep = nextStep
-
-                if (currentStep > 0) {
-                    currentStep--
-                }
-
-                var stepperPan = stepperPanList[currentStep]
-
-                if ((stepperPan.getAttribute('id') === 'test-form-1' && !inputMailForm.value.length)
-                    || (stepperPan.getAttribute('id') === 'test-form-2' && !inputPasswordForm.value.length)) {
-                    event.preventDefault()
-                    form.classList.add('was-validated')
-                }
-            })*/
-        });
-    </script>
-
