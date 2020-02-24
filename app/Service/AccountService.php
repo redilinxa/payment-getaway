@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Redi Linxa
- * Date: 14/12/2019
+ * Date: 24/02/2020
  * Time: 00:52
  */
 
@@ -31,5 +31,16 @@ class AccountService
         $account->iban = $data['iban'];
         $account->save();
         return $account;
+    }
+
+    public function updatePayment(array $data, $accountId){
+        try{
+            $account = Account::findOrFail($accountId);
+            $account->paymentId = $data['paymentId'];
+            $account->save();
+            return $account;
+        }catch(\Exception $ex){
+            return ['error'=>$ex->getMessage()];
+        }
     }
 }

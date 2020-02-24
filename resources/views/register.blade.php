@@ -93,7 +93,8 @@
                             <button id = "submitFinal" class="btn btn-primary btn-next-form">Next</button>
                         </div>
                         <div id="test-form-4" role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
-                            <div id="displayResult"><p></p></div>
+                            <h1></h1>
+                            <div role="alert"></div>
                             <button class="btn btn-primary mt-5" onclick="stepperForm.previous()">Previous</button>
                         </div>
                     </form>

@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var form = stepperFormEl.querySelector('.bs-stepper-content form');
 
     btnNextList.forEach(function (btn) {
-        console.log(btn);
         btn.addEventListener('click', function () {
             window.stepperForm.next();
         });
@@ -61,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
     /* Process the input in the BE and reset the form.*/
     var stepsForm = stepperFormEl.querySelector('#stepsForm');
     var finalButton = stepperFormEl.querySelector('#submitFinal');
@@ -75,7 +73,43 @@ document.addEventListener('DOMContentLoaded', function () {
             contentType: false
         }).done((data) => {
             //implement messaging
+            var sendToPaymentGateway = new CustomEvent('send-to-payment-gateway', {detail: data});
+            this.dispatchEvent(sendToPaymentGateway);
+        }).fail((error) => {
+            console.log(error);
+        });
+    });
+
+    finalButton.addEventListener('send-to-payment-gateway', function(event){
+        $.ajax({
+            //bypass the request to create e proxy and avoid cors issues. Needs https requests with trusted origins.
+            url: 'https://cors-anywhere.herokuapp.com/https://37f32cl571.execute-api.eu-central-1.amazonaws.com/default/wunderfleet-recruiting-backend-dev-save-payment-data',
+            data: JSON.stringify({'customerId':event.detail.customer_id, 'iban':event.detail.iban,'owner':event.detail.owner}),
+            type: 'POST',
+            crossDomain: true,
+            dataType: 'json'
+        }).done((data) => {
+            console.log(data.paymentDataId);
+            var updatePaymentId = new CustomEvent('update-payment-id', {detail: {account_id:event.detail.id, payment_id: data.paymentDataId}});
+            this.dispatchEvent(updatePaymentId);
+            $('#test-form-4 h1').addClass('text-success').html("Success!")
+            $('#test-form-4 div').addClass('alert alert-success').html('PAYMENT_ID:{'+ data.paymentDataId +'}!');
+        }).fail((error) => {
+            $('#test-form-4 h1').addClass('text-DANGER').html("ERROR!")
+            $('#test-form-4 div').addClass('alert alert-danger').html(error);
+        });
+    });
+
+    finalButton.addEventListener('update-payment-id', function(event){
+        $.ajax({
+            //bypass the request to create e proxy and avoid cors issues. Needs https requests with trusted origins.
+            url: '/api/account/'+event.detail.account_id+'/updatePayment',
+            data: {'paymentId': event.detail.payment_id},
+            type: 'POST',
+            dataType: 'json'
+        }).done((data) => {
             console.log(data);
+            localStorage.clear();
         }).fail((error) => {
             console.log(error);
         });

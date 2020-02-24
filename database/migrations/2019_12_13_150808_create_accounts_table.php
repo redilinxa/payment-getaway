@@ -22,7 +22,8 @@ class CreateAccountsTable extends Migration
             $table->string('zip_code');
             $table->string('city');
             $table->string('owner');
-            $table->string('iban');
+            $table->string('iban')->nullable(true);
+            $table->string('paymentId')->nullable(true);
             $table->timestamps();
         });
     }

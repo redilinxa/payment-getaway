@@ -18,7 +18,5 @@ Route::post('/customers', 'CustomerController@store');
 Route::put('/customers/{id}', 'CustomerController@update');
 
 /*Transactions api routes*/
-Route::post('/transactions/customer/{customerId}/deposit', 'TransactionsController@deposit');
-Route::post('/transactions/customer/{customerId}/withdraw', 'TransactionsController@withdraw');
-Route::get('/transactions/report','TransactionsController@report');
+Route::post('/account/{accountId}/updatePayment', 'AccountController@updatePayment');
 

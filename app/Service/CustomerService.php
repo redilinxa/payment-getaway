@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by Redi Linxa
- * Date: 11/12/2019
+ * Date: 24/02/2020
  * Time: 01:25
  */
 
@@ -34,9 +34,8 @@ class CustomerService
     private function updateCustomerObject(Customer $customer, $data){
         $customer->firstName = $data['firstName'];
         $customer->lastName = $data['lastName'];
-        $customer->gender = $data['telephone'];
-        $this->accountService->addAccount($data);
+        $customer->telephone = $data['telephone'];
         $customer->save();
-        return $customer;
+        return $this->accountService->addAccount($customer, $data);
     }
 }
