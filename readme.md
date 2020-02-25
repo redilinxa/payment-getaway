@@ -10,7 +10,8 @@ This implementation was carried through with the following technical specificati
 
 
 ###Installation
-After cloning the repository on the master branch, carry on the following (Docker will need to be installed on the system):
+
+After cloning the repository on the master branch, carry on the following
 - Cloning the repository.
 - cd into payment-getaway directory.
 - execute `composer install` (https://getcomposer.org/) if not installed.
