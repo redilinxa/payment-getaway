@@ -9,6 +9,12 @@ namespace App\Service;
 use App\Account;
 use App\Customer;
 
+/**
+ * Service for every interaction with the Account entity.
+ * This is to decouple the application architecture and code readability.
+ * Class AccountService
+ * @package App\Service
+ */
 class AccountService
 {
     /**
@@ -29,7 +35,6 @@ class AccountService
         $account->city = $data['city'];
         $account->owner = $data['owner'];
         $account->iban = $data['iban'];
-        $account->save();
         return $account;
     }
 

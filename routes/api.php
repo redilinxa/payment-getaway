@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 /*Customer api routes*/
 Route::get('/customers', 'CustomerController@index');
 Route::post('/customers', 'CustomerController@store');
-Route::put('/customers/{id}', 'CustomerController@update');
+Route::put('/customers/{id}', 'CustomerController@update');//not used, in case of customer CRUD
 
 /*Transactions api routes*/
 Route::post('/account/{accountId}/updatePayment', 'AccountController@updatePayment');

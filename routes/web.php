@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Customer api routes*/
+/*Customer payment registration default route*/
 Route::get('/customers/registration', 'CustomerController@register');
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

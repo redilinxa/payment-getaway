@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Contracts\Validation\Validator;
 
+/**
+ * Custom request class to handle the Account's entity validations (Served as template but not used in the current scenario.)
+ * Class AccountRequest
+ * @package App\Http\Requests
+ */
 class AccountRequest extends FormRequest
 {
     /**
