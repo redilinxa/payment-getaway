@@ -1,256 +1,44 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## payment-gateway - Customer Transactions API
+## Payment Gateway - Customer Transactions API
 ##### Description
-The project was based on the following [functional requirements](https://drive.google.com/open?id=0B__SCzsIDKBBY05BeDY2UVcyWUpxVnZEajZuclBxX2RDenRz).
+The project was based on the following [functional requirements](https://drive.google.com/open?id=1jQEUTrw4W9aQXhDFAdZTcaY6tDzcWfiX).
+All the functional specification has been met. When landing on the `/customers/registration` route , 
+the user will be made available  
 This implementation was carried through with the following technical specifications:
 - PHP Framework Laravel 5.8
-- MySql Database system.
-- Nginx Web Server
-- Docker was used for development environment.
+- MariaDb 10.3 but Mysql 5.7 could be used as well.
+- Laravel builtin Web Server.
+
 
 ###Installation
 After cloning the repository on the master branch, carry on the following (Docker will need to be installed on the system):
-````
-- docker-compose -up -d
-- docker-compose exec db mysql -u root -pmysql
-   myslq> 'CREATE DATABASE psp_media;'
-- rename .env.example to .env
-- docker-compose exec app composer install
-- http://localhost:8070 -> you should be able to see the laravel main page.
-````
-###Configuration
-After the installation process, we need to prepare the database with the designated schema for the Api calls.
-```
-- docker-compose exec app migrate:install
-- docker-compose exec app migrate
-``` 
+- Cloning the repository.
+- cd into payment-getaway directory.
+- execute `composer install` (https://getcomposer.org/) if not installed.
+- Create a database with name 'payment-gateway' and adjust the databse host, port, username, password variables on the `.env.example`.
+- rename `.env.example` to `.env`.
+- execute `php artisan migrate:install`.
+- execute `php artisan migrate`.
+- run local server `php artisan serve` and follow the link. 
+- If you are having issues setting up, a docker configuration could follow up if needed. Please email`redilinxa@gmail.com` for support.
+
 
 ###Usage
-The following is the route list with all the Rest APIs. 
- 
-| Method   | URI                                             |Action                                                | Middleware |
-|----------|-------------------------------------------------|------------------------------------------------------|------------|        
-| GET      | api/customers                                   | App\Http\Controllers\CustomerController@index        | api        |
-| POST     | api/customers                                   | App\Http\Controllers\CustomerController@store        | api        |
-| PUT      | api/customers/{id}                              | App\Http\Controllers\CustomerController@update       | api        |
-| POST     | api/transactions/customer/{customerId}/deposit  | App\Http\Controllers\TransactionsController@deposit  | api        |
-| POST     | api/transactions/customer/{customerId}/withdraw | App\Http\Controllers\TransactionsController@withdraw | api        |
-| GET      | api/transactions/report                         | App\Http\Controllers\TransactionsController@report   | api        |
+- Open the route `/customers/registration`.
+- Follow the flow until the end. if you have not completed all the flow, the system will remember you last position.
+- After the completion of the flow, please refresh to go to first step again.
+- Graphical interface screenshots of the project. [Link](https://drive.google.com/drive/folders/12qyLaG3Zs_9iYHifPWEhdj4NwLubvFjb)
 
-Sample Api calls taken from Postman:
 
-```
-{
-	"variables": [],
-	"info": {
-		"name": "psp",
-		"_postman_id": "838fa7c6-7634-228e-cbde-2357627fa827",
-		"description": "",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "http://localhost:8070/api/customers",
-			"request": {
-				"url": "http://localhost:8070/api/customers",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "redi_testo@edco.ms",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "firstName",
-							"value": "Redi",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "lastName",
-							"value": "Linxa",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "gender",
-							"value": "m",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "country",
-							"value": "AL",
-							"description": "",
-							"type": "text"
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8070/api/customers/1",
-			"request": {
-				"url": "http://localhost:8070/api/customers/1",
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "email",
-							"value": "redi_dodo@edco.ms",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "firstName",
-							"value": "Redi5",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "lastName",
-							"value": "Linxa3",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "gender",
-							"value": "m",
-							"description": "",
-							"type": "text"
-						},
-						{
-							"key": "country",
-							"value": "AL",
-							"description": "",
-							"type": "text"
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8070/api/transactions/customer/1/deposit",
-			"request": {
-				"url": "http://localhost:8070/api/transactions/customer/1/deposit",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "amount",
-							"value": "30",
-							"description": "",
-							"type": "text"
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8070/api/transactions/customer/1/withdraw",
-			"request": {
-				"url": "http://localhost:8070/api/transactions/customer/1/withdraw",
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/x-www-form-urlencoded",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "amount",
-							"value": "30",
-							"description": "",
-							"type": "text"
-						}
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "http://localhost:8070/api/transactions/report?dateFrom=2019-12-13&dateTo=2019-12-14",
-			"request": {
-				"url": {
-					"raw": "http://localhost:8070/api/transactions/report?dateFrom=2019-12-13&dateTo=2019-12-14",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8070",
-					"path": [
-						"api",
-						"transactions",
-						"report"
-					],
-					"query": [
-						{
-							"key": "dateFrom",
-							"value": "2019-12-13",
-							"equals": true,
-							"description": ""
-						},
-						{
-							"key": "dateTo",
-							"value": "2019-12-14",
-							"equals": true,
-							"description": ""
-						}
-					],
-					"variable": []
-				},
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"description": "Report request"
-			},
-			"response": []
-		}
-	]
-}
-```
+###Improvements
+- In a much bigger application i would have created separate routes for the steps 
+to keep better track of the user flow and generate statistics.
+- Transaction based database records creation.
+- Detailed exception handling and Validations.
+- Adjusting docker file for development portability.
+
+Overall i can say that for the existing specification the application does what is intended.
+The means behind the completion of this task was for me to be able to show as much diverse implementation logic and technologies
+in order for you to be able to understand my existing knowledge as a developer.
+I wanted to deliver a solution which could be as much decoupled and reusable as possible.
+I used Laravel as it is among the most popular frameworks available. However i could have used any other framework with just a little more time time spare.
+Looking forward to you reviews.
