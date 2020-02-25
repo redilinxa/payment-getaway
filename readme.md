@@ -15,7 +15,7 @@ After cloning the repository on the master branch, carry on the following
 - Cloning the repository.
 - cd into payment-getaway directory.
 - execute `composer install` (https://getcomposer.org/) if not installed.
-- Create a database with name 'payment-gateway' and adjust the databse host, port, username, password variables on the `.env.example`.
+- Create a database with name 'payment-gateway' and adjust the database host, port, username, password variables on the `.env.example`.
 - rename `.env.example` to `.env`.
 - execute `php artisan migrate:install`.
 - execute `php artisan migrate`.
