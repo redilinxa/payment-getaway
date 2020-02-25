@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         var stepperPan = stepperPanList[currentStep];
-        localStorage.setItem('currentStep', nextStep + 1);
+
         /*
         * Validate only the inputs on each step.
         * */
@@ -57,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!formValid){
             event.preventDefault();
             form.classList.add('was-validated');
+            console.log(nextStep);
+        }else{
+            localStorage.setItem('currentStep', nextStep + 1);
         }
     });
 
@@ -79,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(error);
         });
     });
-
+    /* Catch the event sending payment information to the wunder mobility remote service*/
     finalButton.addEventListener('send-to-payment-gateway', function(event){
         $.ajax({
             //bypass the request to create e proxy and avoid cors issues. Needs https requests with trusted origins.
@@ -92,24 +95,23 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(data.paymentDataId);
             var updatePaymentId = new CustomEvent('update-payment-id', {detail: {account_id:event.detail.id, payment_id: data.paymentDataId}});
             this.dispatchEvent(updatePaymentId);
-            $('#test-form-4 h1').addClass('text-success').html("Success!")
-            $('#test-form-4 div').addClass('alert alert-success').html('PAYMENT_ID:{'+ data.paymentDataId +'}!');
+            $('#test-form-4 h1').removeClass('text-danger').addClass('text-success').html("Success!")
+            $('#test-form-4 div').removeClass('alert alert-danger').addClass('alert alert-success').html('PAYMENT_ID:{'+ data.paymentDataId +'}!');
         }).fail((error) => {
-            $('#test-form-4 h1').addClass('text-DANGER').html("ERROR!")
-            $('#test-form-4 div').addClass('alert alert-danger').html(error);
+            $('#test-form-4 h1').removeClass('text-success').addClass('text-danger').html("ERROR!")
+            $('#test-form-4 div').removeClass('alert alert-success').addClass('alert alert-danger').html(error.responseJSON.error);
         });
     });
-
+    /* Update payment locally. */
     finalButton.addEventListener('update-payment-id', function(event){
         $.ajax({
-            //bypass the request to create e proxy and avoid cors issues. Needs https requests with trusted origins.
             url: '/api/account/'+event.detail.account_id+'/updatePayment',
             data: {'paymentId': event.detail.payment_id},
             type: 'POST',
             dataType: 'json'
         }).done((data) => {
             console.log(data);
-            localStorage.clear();
+            window.localStorage.clear();
         }).fail((error) => {
             console.log(error);
         });
