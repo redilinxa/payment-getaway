@@ -19,6 +19,7 @@ After cloning the repository on the master branch, carry on the following
 - rename `.env.example` to `.env`.
 - execute `php artisan migrate:install`.
 - execute `php artisan migrate`.
+- execute `npm install && npm run dev` (nodejs.org) if not installed for the assets build.
 - run local server `php artisan serve` and follow the link. 
 - If you are having issues setting up, a docker configuration could follow up if needed. Please email`redilinxa@gmail.com` for support.
 
